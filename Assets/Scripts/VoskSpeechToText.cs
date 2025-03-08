@@ -14,6 +14,8 @@ using Vosk;
 
 public class VoskSpeechToText : MonoBehaviour
 {
+	public Text text;
+	
 	[Tooltip("Location of the model, relative to the Streaming Assets folder.")]
 	public string ModelPath = "vosk-model-small-ru-0.22.zip";
 
@@ -85,6 +87,8 @@ public class VoskSpeechToText : MonoBehaviour
 	//If Auto start is enabled, starts vosk speech to text.
 	void Start()
 	{
+		// OnTranscriptionResult += (string result) => { text.text += "\n"+result; };
+		
 		if (AutoStart)
 		{
 			StartVoskStt();

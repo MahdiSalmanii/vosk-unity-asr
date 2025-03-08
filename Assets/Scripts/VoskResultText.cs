@@ -15,15 +15,31 @@ public class VoskResultText : MonoBehaviour
     {
         Debug.Log(obj);
         var result = new RecognitionResult(obj);
+
+        RecognizedPhrase mostConfidence = null;
+        float confidence = -1f;
+        
         for (int i = 0; i < result.Phrases.Length; i++)
         {
-            if (i > 0)
+            if (result.Phrases[i].Confidence > confidence)
             {
-                ResultText.text += ", ";
+                confidence = result.Phrases[i].Confidence;
+                mostConfidence = result.Phrases[i];
             }
+            
+            // if (i > 0)
+            // {
+            //     ResultText.text += ", ";
+            // }
 
-            ResultText.text += result.Phrases[i].Text;
+            // ResultText.text += result.Phrases[i].Text;
         }
-    	ResultText.text += "\n";
+
+        if (mostConfidence == null || string.IsNullOrEmpty(mostConfidence.Text))
+            return;
+        
+        ResultText.text += mostConfidence.Text;
+        ResultText.text += "\n";return;
+
     }
 }
